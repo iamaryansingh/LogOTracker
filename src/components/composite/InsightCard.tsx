@@ -47,7 +47,9 @@ export function InsightCard({ insight, onActionPress }: InsightCardProps) {
           {insight.body}
         </Text>
         <Text variant="caption" tone="secondary">
-          Observed across {insight.evidenceCount} similar {insight.evidenceCount === 1 ? 'event' : 'events'}
+          {insight.evidenceUnit === 'days'
+            ? `Based on ${insight.evidenceCount} days of your data`
+            : `Observed across ${insight.evidenceCount} of your entries`}
         </Text>
       </View>
 

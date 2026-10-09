@@ -2,12 +2,23 @@
   "expo": {
     "name": "Self Mirror",
     "slug": "self-mirror",
+    "scheme": "selfmirror",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aryansingh.selfmirror",
+      "infoPlist": {
+        "NSAlarmKitUsageDescription": "Self Mirror sets alarms you ask for in your notes, like “Wake me up at 6:30am”.",
+        "NSBluetoothAlwaysUsageDescription": "Self Mirror connects to your WHOOP's heart rate broadcast (or another heart rate monitor) to show your heart rate live.",
+        "UIBackgroundModes": [
+          "fetch",
+          "location",
+          "bluetooth-central"
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -16,10 +27,88 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.aryansingh.selfmirror",
+      "permissions": [
+        "android.permission.health.READ_STEPS",
+        "android.permission.health.READ_ACTIVE_CALORIES_BURNED",
+        "android.permission.health.READ_EXERCISE",
+        "android.permission.health.READ_SLEEP"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-calendar",
+        {
+          "calendarPermission": "Self Mirror reads when your events start and end to understand how your schedule affects your day."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Self Mirror uses your location to build your Memories: the places where you spent time today.",
+          "locationAlwaysAndWhenInUsePermission": "Allow “Always” so Self Mirror can notice where you spend time while the app is closed, and turn each day into a memory. Your location history stays on this iPhone.",
+          "isIosBackgroundLocationEnabled": true
+        }
+      ],
+      [
+        "expo-sensors",
+        {
+          "motionPermission": "Self Mirror uses motion and steps to notice when movement seems to lift your mood."
+        }
+      ],
+      "@react-native-community/datetimepicker",
+      [
+        "@kingstinct/react-native-healthkit",
+        {
+          "NSHealthShareUsageDescription": "Self Mirror reads your steps, move calories, exercise minutes, workouts and sleep so they appear on your timeline and in your weekly patterns. Nothing leaves your phone.",
+          "NSHealthUpdateUsageDescription": "Self Mirror does not write to Health.",
+          "background": false
+        }
+      ],
+      "react-native-health-connect",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "minSdkVersion": 26
+          }
+        }
+      ],
+      [
+        "react-native-cloud-storage",
+        {
+          "iCloudContainerEnvironment": "Production"
+        }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Self Mirror uses the microphone when you tap the mic to speak a note.",
+          "speechRecognitionPermission": "Self Mirror turns what you say into note text, on your device where possible."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Self Mirror adds the photos you choose to your memories, and attaches screenshots to bugs and ideas on the Dev tab.",
+          "cameraPermission": "Self Mirror opens the camera when you tap a memory prompt, so the photo goes straight into that place's memory.",
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Self Mirror shows photos you took at places you visited in your memories, reads where a chosen photo was taken, and finds your latest screenshot for bug reports.",
+          "savePhotosPermission": false,
+          "isAccessMediaLocationEnabled": false
+        }
+      ]
+    ]
   }
 }

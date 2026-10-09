@@ -14,7 +14,7 @@ const loadToken: Record<LoadLevel, StateToken> = {
 
 export interface DaySummaryHeaderProps {
   now: Date;
-  load: LoadLevel;
+  load: LoadLevel | null;
 }
 
 export function DaySummaryHeader({ now, load }: DaySummaryHeaderProps) {
@@ -27,7 +27,7 @@ export function DaySummaryHeader({ now, load }: DaySummaryHeaderProps) {
           {formatLongDate(now)}
         </Text>
       </View>
-      <Chip label={`${load} load`} color={colors.state[loadToken[load]]} />
+      {load && <Chip label={`${load} load`} color={colors.state[loadToken[load]]} />}
     </View>
   );
 }

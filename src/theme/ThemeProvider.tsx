@@ -1,22 +1,29 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { darkPalette, lightPalette, stateColors, type SurfacePalette } from './colors';
+import { darkPalette, lightPalette, memoryDark, memoryLight, stateColors, type MemoryPalette, type SurfacePalette } from './colors';
 
 export interface Theme {
   scheme: 'light' | 'dark';
-  colors: SurfacePalette & { state: typeof stateColors };
+  colors: SurfacePalette & { state: typeof stateColors; memory: MemoryPalette };
 }
 
 const buildTheme = (scheme: 'light' | 'dark'): Theme => ({
   scheme,
-  colors: { ...(scheme === 'dark' ? darkPalette : lightPalette), state: stateColors },
+  colors: { ...(scheme === 'dark' ? darkPalette : lightPalette), state: stateColors, memory: scheme === 'dark' ? memoryDark : memoryLight },
 });
 
 const ThemeContext = createContext<Theme>(buildTheme('light'));
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const scheme = useColorScheme() === 'dark' ? 'dark' : 'light';
+export interface ThemeProviderProps {
+  children: ReactNode;
+  /** Forces a scheme; omit to follow the system setting. */
+  override?: 'light' | 'dark';
+}
+
+export function ThemeProvider({ children, override }: ThemeProviderProps) {
+  const system = useColorScheme() === 'dark' ? 'dark' : 'light';
+  const scheme = override ?? system;
   const theme = useMemo(() => buildTheme(scheme), [scheme]);
   return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
 }

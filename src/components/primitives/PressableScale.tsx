@@ -1,6 +1,7 @@
-import * as Haptics from 'expo-haptics';
 import { Pressable, type PressableProps, type StyleProp, type ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+
+import { haptics } from '../../utils/haptics';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const spring = { damping: 18, stiffness: 320, mass: 0.6 };
@@ -37,7 +38,7 @@ export function PressableScale({
         onPressOut?.(e);
       }}
       onPress={(e) => {
-        if (haptic) Haptics.selectionAsync().catch(() => {});
+        if (haptic) haptics.selection();
         onPress?.(e);
       }}
       {...rest}

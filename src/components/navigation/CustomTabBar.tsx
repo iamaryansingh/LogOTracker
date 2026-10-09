@@ -1,9 +1,9 @@
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import * as Haptics from 'expo-haptics';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { spacing, useTheme } from '../../theme';
+import { haptics } from '../../utils/haptics';
 import { PressableScale, Text } from '../primitives';
 
 /** Text-only tab bar with a small active dot, kept quiet on purpose. */
@@ -31,7 +31,7 @@ export function CustomTabBar({ state, descriptors, navigation }: BottomTabBarPro
         const onPress = () => {
           const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
           if (!focused && !event.defaultPrevented) {
-            Haptics.selectionAsync().catch(() => {});
+            haptics.selection();
             navigation.navigate(route.name, route.params);
           }
         };

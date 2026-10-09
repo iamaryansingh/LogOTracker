@@ -24,6 +24,25 @@ export const darkPalette: SurfacePalette = {
   borderSubtle: '#2C2C2E',
 };
 
+/** Memory canvas: a warm parchment surface, the pin accent, and one colour per vibe. */
+export const memoryLight = {
+  bgMemoryWarm: '#FAF8F5',
+  accentPin: '#E06D53',
+  vibeCozy: '#D99B26',
+  vibeExplore: '#4A7C59',
+  vibeSocial: '#5A84A2',
+  /** Instant-photo prints: paper stays light in dark mode, like a real print. */
+  polaroidPaper: '#FFFDF7',
+  polaroidInk: '#2B2A33',
+  /** The orange date stamp disposable cameras print on the photo. */
+  dateStamp: '#FF9A3C',
+  /** A pinboard under the prints. */
+  board: '#F1E6D6',
+  pins: ['#E5484D', '#F5B83D', '#3E8ED0', '#46A758', '#8E4EC6'] as string[],
+};
+export const memoryDark = { ...memoryLight, bgMemoryWarm: '#161518', polaroidPaper: '#F4F1EA', board: '#2A2520' };
+export type MemoryPalette = typeof memoryLight;
+
 /** State tokens carry meaning; never use them decoratively. Shared across light and dark. */
 export const stateColors = {
   calm: '#5B8E7D',

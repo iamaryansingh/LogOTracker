@@ -1,29 +1,21 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { CustomTabBar } from '../components/navigation/CustomTabBar';
-import { PlaceholderScreen } from '../screens/PlaceholderScreen';
+import { DevScreen } from '../screens/DevScreen';
+import { MemoriesScreen } from '../screens/MemoriesScreen';
+import { PlansScreen } from '../screens/PlansScreen';
 import { TodayScreen } from '../screens/TodayScreen';
-
-export type RootTabParamList = {
-  Today: undefined;
-  Timeline: undefined;
-  Insights: undefined;
-  Profile: undefined;
-};
+import type { RootTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
-
-const TimelineTab = () => <PlaceholderScreen title="Timeline" note="Your full day, arriving in Sprint 2." />;
-const InsightsTab = () => <PlaceholderScreen title="Insights" note="Patterns and triggers, arriving in Sprint 3." />;
-const ProfileTab = () => <PlaceholderScreen title="Profile" note="Privacy and inputs, arriving in Sprint 4." />;
 
 export function RootTabs() {
   return (
     <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />} screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Today" component={TodayScreen} />
-      <Tab.Screen name="Timeline" component={TimelineTab} />
-      <Tab.Screen name="Insights" component={InsightsTab} />
-      <Tab.Screen name="Profile" component={ProfileTab} />
+      <Tab.Screen name="Memories" component={MemoriesScreen} />
+      <Tab.Screen name="Plans" component={PlansScreen} />
+      <Tab.Screen name="Dev" component={DevScreen} />
     </Tab.Navigator>
   );
 }
